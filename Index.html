@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать событие</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        /* Дополнительные стили для страницы редактирования */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .event-form {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+        
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span>Редактировать событие</span>
+            <a href="index.html" class="btn btn-secondary">Назад к списку</a>
+        </h1>
+        
+        <form id="editEventForm" class="event-form">
+            <input type="hidden" id="eventId">
+            
+            <div class="form-group">
+                <label for="editTitle">Название события:</label>
+                <input type="text" id="editTitle" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="editDate">Дата:</label>
+                <input type="date" id="editDate" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="editCategory">Категория:</label>
+                <select id="editCategory" required>
+                    <option value="personal">Личное</option>
+                    <option value="work">Работа</option>
+                    <option value="public">Общественное</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="editDescription">Описание:</label>
+                <textarea id="editDescription" rows="4"></textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                <button type="button" id="deleteEventBtn" class="btn btn-danger">Удалить событие</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/js/storage.js"></script>
+    <script src="/js/edit-event.js"></script>
+    <script>
+        // Пример скрипта для редактирования события
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем ID события из URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get('id');
+            
+            if (eventId) {
+                document.getElementById('eventId').value = eventId;
+                
+                // Загружаем данные события (заглушка)
+                const event = {
+                    id: eventId,
+                    title: 'Пример события',
+                    date: '2023-12-31',
+                    category: 'work',
+                    description: 'Это пример описания события для демонстрации.'
+                };
+                
+                // Заполняем форму
+                document.getElementById('editTitle').value = event.title;
+                document.getElementById('editDate').value = event.date;
+                document.getElementById('editCategory').value = event.category;
+                document.getElementById('editDescription').value = event.description;
+            }
+            
+            // Обработчик отправки формы
+            document.getElementById('editEventForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Получаем данные из формы
+                const eventData = {
+                    id: document.getElementById('eventId').value,
+                    title: document.getElementById('editTitle').value,
+                    date: document.getElementById('editDate').value,
+                    category: document.getElementById('editCategory').value,
+                    description: document.getElementById('editDescription').value
+                };
+                
+                // Здесь должна быть логика сохранения изменений
+                console.log('Событие обновлено:', eventData);
+                alert('Изменения сохранены!');
+                window.location.href = 'index.html';
+            });
+            
+            // Обработчик кнопки удаления
+            document.getElementById('deleteEventBtn').addEventListener('click', function() {
+                if (confirm('Вы уверены, что хотите удалить это событие?')) {
+                    // Здесь должна быть логика удаления
+                    console.log('Событие удалено:', document.getElementById('eventId').value);
+                    alert('Событие удалено!');
+                    window.location.href = 'index.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
