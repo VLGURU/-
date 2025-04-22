@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать событие</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Редактировать событие</h1>
+            <a href="index.html" class="btn">Назад</a>
+        </header>
+        
+        <main>
+            <form id="edit-event-form" class="event-form">
+                <input type="hidden" id="event-id">
+                
+                <div class="form-group">
+                    <label for="event-title">Название события</label>
+                    <input type="text" id="event-title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="event-date">Дата</label>
+                    <input type="date" id="event-date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="event-category">Категория</label>
+                    <select id="event-category" required>
+                        <option value="personal">Личное</option>
+                        <option value="work">Рабочее</option>
+                        <option value="social">Общественное</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="event-description">Описание</label>
+                    <textarea id="event-description" rows="4"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn">Сохранить</button>
+                    <button type="button" id="delete-event-btn" class="btn btn-danger">Удалить</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script src="js/edit-event.js"></script>
+</body>
+</html>
